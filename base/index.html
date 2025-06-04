@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Matrix digital</title>
+  <link rel="stylesheet" href="./style.css">
+  <title>Web access</title>
+  <script>
+      function checkPassword() {
+          const password = document.getElementById('password').value;
+          const redirects = {
+              "bradpitt": "bradpitt.html",
+              "madonna": "madonna.html",
+              "motdepasse3": "page3.html"
+              // Ajoutez autant de paires mot de passe/page que nécessaire
+          };
+          
+          if (redirects[password]) {
+              window.location.href = redirects[password];
+          } else {
+              alert("Mot de passe incorrect");
+          }
+      }
+  </script>
+</head>
+<body>
+    <div class="conteneur">
+
+        <input type="password" id="password" placeholder="Mot de passe">
+        <button onclick="checkPassword()">Se connecter</button>
+
+      <canvas id="c"></canvas>
+      <script  src="script.js"></script>
+
+    </div>
+</body>
+</html>

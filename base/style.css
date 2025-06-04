@@ -1,0 +1,25 @@
+            
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {background:black;}
+canvas {display:block;}
+
+#c {
+  position: absolute;
+  top : 0; left: 0;
+  width : 100%;
+  height: 100%;
+  background: radial-gradient(#000000, #000000);
+  z-index: -1;
+}
+.conteneur {
+  display: flex; /* On initialise flexbox */
+  justify-content: center; /* Centre horizontalement */
+  align-items: center; /* Centre verticalement */
+  height: 500px; /* Hauteur du conteneur */
+  border: 1px solid black; /* On ajoute une bordure noire /*
+}
