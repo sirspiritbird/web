@@ -1,9 +1,729 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Mon Site</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grimoire des Personnalités Célèbres</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cinzel', 'Times New Roman', serif;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(220, 20, 60, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(25, 25, 112, 0.5) 0%, transparent 50%),
+                linear-gradient(135deg, #000000 0%, #1a0033 25%, #330066 50%, #660099 75%, #000033 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Étoiles scintillantes */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #00ffff;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite alternate;
+            box-shadow: 0 0 6px #00ffff;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Particules magiques flottantes */
+        .magic-particle {
+            position: fixed;
+            width: 5px;
+            height: 5px;
+            background: radial-gradient(circle, #ff0080 0%, #00ffff 50%, #ff4000 100%);
+            border-radius: 50%;
+            animation: float-magic 12s linear infinite;
+            z-index: -1;
+            box-shadow: 0 0 15px #ff0080;
+        }
+
+        @keyframes float-magic {
+            0% { 
+                transform: translateY(100vh) translateX(0) rotate(0deg); 
+                opacity: 0; 
+            }
+            10% { opacity: 1; }
+            50% { 
+                transform: translateY(50vh) translateX(50px) rotate(180deg);
+                box-shadow: 0 0 20px #00ffff;
+            }
+            90% { opacity: 1; }
+            100% { 
+                transform: translateY(-100vh) translateX(100px) rotate(360deg); 
+                opacity: 0; 
+            }
+        }
+
+        /* Brouillard mystique */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 70%, rgba(220, 20, 60, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 30%, rgba(25, 25, 112, 0.15) 0%, transparent 60%);
+            animation: mysticalFog 15s ease-in-out infinite alternate;
+            z-index: -2;
+        }
+
+        @keyframes mysticalFog {
+            0% { opacity: 0.2; transform: scale(1) rotate(0deg); }
+            100% { opacity: 0.4; transform: scale(1.2) rotate(5deg); }
+        }
+
+        /* Header magique */
+        .header {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: 
+                linear-gradient(135deg, rgba(220, 20, 60, 0.3), rgba(25, 25, 112, 0.4)),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" patternUnits="userSpaceOnUse" width="20" height="20"><circle cx="10" cy="10" r="1" fill="%2300ffff" opacity="0.4"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
+            backdrop-filter: blur(15px);
+            border-bottom: 3px solid #00ffff;
+            box-shadow: 
+                0 4px 20px rgba(0, 255, 255, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .header::before {
+            content: '✨';
+            position: absolute;
+            top: 1rem;
+            left: 2rem;
+            font-size: 2rem;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .header::after {
+            content: '🔮';
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+            font-size: 2rem;
+            animation: sparkle 2s ease-in-out infinite 1s;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ffff, #ff0080, #ff4000, #00ffff);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: magicText 4s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.9));
+        }
+
+        @keyframes magicText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #ff0080;
+            text-shadow: 0 0 20px #ff0080;
+            font-style: italic;
+        }
+
+        /* Container principal - 3 colonnes */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Cartes grimoire */
+        .list-card {
+            background: 
+                linear-gradient(135deg, 
+                    rgba(25, 25, 112, 0.4) 0%, 
+                    rgba(72, 61, 139, 0.5) 25%,
+                    rgba(138, 43, 226, 0.4) 50%,
+                    rgba(25, 25, 112, 0.3) 100%
+                );
+            border: 2px solid #00ffff;
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(15px);
+            box-shadow: 
+                0 10px 40px rgba(0, 255, 255, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 0 25px rgba(255, 0, 128, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        /* Effet parchemin ancien */
+        .list-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 255, 255, 0.1) 2px,
+                    rgba(0, 255, 255, 0.1) 4px
+                );
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        /* Effet magique au survol */
+        .list-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                conic-gradient(
+                    from 0deg,
+                    transparent,
+                    rgba(0, 255, 255, 0.3),
+                    transparent,
+                    rgba(255, 0, 128, 0.3),
+                    transparent
+                );
+            opacity: 0;
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+
+        .list-card:hover::after {
+            animation: magicRotate 3s linear infinite;
+            opacity: 1;
+        }
+
+        @keyframes magicRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .list-card:hover {
+            transform: translateY(-8px) rotateX(5deg);
+            border-color: #ff0080;
+            box-shadow: 
+                0 20px 60px rgba(0, 255, 255, 0.6),
+                0 0 40px rgba(255, 0, 128, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .list-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: linear-gradient(45deg, #00ffff, #ff0080);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+            border-bottom: 2px solid #00ffff;
+            padding-bottom: 0.8rem;
+            position: relative;
+        }
+
+        .list-title::before {
+            content: '📜';
+            position: absolute;
+            left: -2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .list-title::after {
+            content: '🪄';
+            position: absolute;
+            right: -2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: float 3s ease-in-out infinite 1.5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(-50%) rotate(0deg); }
+            50% { transform: translateY(-70%) rotate(10deg); }
+        }
+
+        .celebrity-list {
+            list-style: none;
+        }
+
+        .celebrity-item {
+            padding: 0.8rem 1rem;
+            margin: 0.5rem 0;
+            background: 
+                linear-gradient(90deg, 
+                    rgba(25, 25, 112, 0.3) 0%,
+                    rgba(0, 255, 255, 0.15) 50%,
+                    rgba(25, 25, 112, 0.3) 100%
+                );
+            border-left: 4px solid #00ffff;
+            border-radius: 10px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .celebrity-item:hover {
+            background: 
+                linear-gradient(90deg, 
+                    rgba(0, 255, 255, 0.3) 0%,
+                    rgba(255, 0, 128, 0.2) 50%,
+                    rgba(0, 255, 255, 0.3) 100%
+                );
+            border-left-color: #ff0080;
+            transform: translateX(15px) scale(1.02);
+            box-shadow: 
+                0 5px 20px rgba(0, 255, 255, 0.5),
+                0 0 15px rgba(255, 0, 128, 0.4);
+            color: #00ffff;
+        }
+
+        .celebrity-item::before {
+            content: '⭐';
+            position: absolute;
+            left: -1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: all 0.4s ease;
+            animation: none;
+        }
+
+        .celebrity-item:hover::before {
+            opacity: 1;
+            animation: starSpin 2s linear infinite;
+        }
+
+        @keyframes starSpin {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+        }
+
+        .celebrity-item::after {
+            content: '✨';
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .celebrity-item:hover::after {
+            opacity: 1;
+            animation: sparkleFloat 1.5s ease-in-out infinite;
+            color: #ff0080;
+        }
+
+        @keyframes sparkleFloat {
+            0%, 100% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-70%) scale(1.3); }
+        }
+
+        /* Animation des cartes au chargement */
+        .list-card {
+            animation: spellCast 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(50px) rotateX(-10deg);
+        }
+
+        @keyframes spellCast {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) rotateX(-10deg) scale(0.9);
+            }
+            70% {
+                transform: translateY(-10px) rotateX(2deg) scale(1.02);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotateX(0deg) scale(1);
+            }
+        }
+
+        /* Délais d'animation magique */
+        .list-card:nth-child(1) { animation-delay: 0.1s; }
+        .list-card:nth-child(2) { animation-delay: 0.3s; }
+        .list-card:nth-child(3) { animation-delay: 0.5s; }
+        .list-card:nth-child(4) { animation-delay: 0.7s; }
+        .list-card:nth-child(5) { animation-delay: 0.9s; }
+        .list-card:nth-child(6) { animation-delay: 1.1s; }
+        .list-card:nth-child(7) { animation-delay: 1.3s; }
+        .list-card:nth-child(8) { animation-delay: 1.5s; }
+        .list-card:nth-child(9) { animation-delay: 1.7s; }
+        .list-card:nth-child(10) { animation-delay: 1.9s; }
+
+        /* Footer mystique */
+        .footer {
+            text-align: center;
+            padding: 2.5rem;
+            background: 
+                linear-gradient(135deg, rgba(25, 25, 112, 0.4), rgba(220, 20, 60, 0.3)),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><circle cx="25" cy="25" r="1" fill="%2300ffff" opacity="0.3"/></svg>');
+            backdrop-filter: blur(15px);
+            border-top: 3px solid #00ffff;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            position: relative;
+        }
+
+        .footer::before {
+            content: '🌟✨🌙✨🌟';
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            animation: footerSparkle 3s ease-in-out infinite;
+        }
+
+        @keyframes footerSparkle {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* Responsive - 3 colonnes sur desktop, 1 sur mobile */
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+                gap: 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .list-card {
+                padding: 1.5rem;
+            }
+
+            .list-title::before,
+            .list-title::after {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Waiting</h1>
-</body>
-</html>
+    <div class="stars"></div>
+
+    <div class="header">
+        <h1>GRIMOIRE DES CÉLÉBRITÉS</h1>
+        <p class="subtitle">Recueil Magique des Âmes Illustres</p>
+    </div>
+
+    <div class="container">
+        <div class="list-card">
+            <h2 class="list-title">Acteurs/Actrices Légendaires</h2>
+            <ul class="celebrity-list">
+                <li class="celebrity-item">Leonardo DiCaprio</li>
+                <li class="celebrity-item">Meryl Streep</li>
+                <li class="celebrity-item">Robert De Niro</li>
+                <li class="celebrity-item">Scarlett Johansson</li>
+                <li class="celebrity-item">Morgan Freeman</li>
+                <li class="celebrity-item">Charlize Theron</li>
+                <li class="celebrity-item">Tom Hanks</li>
+                <li class="celebrity-item">Natalie Portman</li>
+                <li class="celebrity-item">Al Pacino</li>
+                <li class="celebrity-item">Cate Blanchett</li>
+            </ul>
+        </div>
+
+        <div class="list-card">
+            <h2 class="list-title">Musiciens Emblématiques</h2>
+            <ul class="celebrity-list">
+                <li class="celebrity-item">Beyoncé</li>
+                <li class="celebrity-item">Michael Jackson</li>
+                <li class="celebrity-item">Madonna</li>
+                <li class="celebrity-item">Elvis Presley</li>
+                <li class="celebrity-item">Bob Dylan</li>
+                <li class="celebrity-item">Whitney Houston</li>
+                <li class="celebrity-item">Prince</li>
+                <li class="celebrity-item">Aretha Franklin</li>
+                <li class="celebrity-item">John Lennon</li>
+                <li class="celebrity-item">Adele</li>
+            </ul>
+        </div>
+
+        <div class="list-card">
+            <h2 class="list-title">Leaders Politiques Historiques</h2>
+            <ul class="celebrity-list">
+                <li class="celebrity-item">Nelson Mandela</li>
+                <li class="celebrity-item">Winston Churchill</li>
+                <li class="celebrity-item">Abraham Lincoln</li>
+                <li class="celebrity-item">Mahatma Gandhi</li>
+                <li class="celebrity-item">John F. Kennedy</li>
+                <li class="celebrity-item">Martin Luther King Jr.</li>
+                <li class="celebrity-item">Franklin D. Roosevelt</li>
+                <li class="celebrity-item">Charles de Gaulle</li>
+                <li class="celebrity-item">Theodore Roosevelt</li>
+                <li class="celebrity-item">Margaret Thatcher</li>
+            </ul>
+        </div>
+
+        <div class="list-card">
+            <h2 class="list-title">Génies Scientifiques</h2>
+            <ul class="celebrity-list">
+                <li class="celebrity-item">Albert Einstein</li>
+                <li class="celebrity-item">Stephen Hawking</li>
+                <li class="celebrity-item">Marie Curie</li>
+                <li class="celebrity-item">Isaac Newton</li>
+                <li class="celebrity-item">Charles Darwin</li>
+                <li class="celebrity-item">Nikola Tesla</li>
+                <li class="celebrity-item">Galileo Galilei</li>
+                <li class="celebrity-item">Leonardo da Vinci</li>
+                <li class="celebrity-item">Thomas Edison</li>
+                <li class="celebrity-item">Neil deGrasse Tyson</li>
+            </ul>
+        </div>
+
+        <div class="list-card">
+            <h2 class="list-title">Sportifs de Légende</h2>
+            <ul class="celebrity-list">
+                <li class="celebrity-item">Michael Jordan</li>
+                <li class="celebrity-item">Serena Williams</li>
+                <li class="celebrity-item">Pelé</li>
+                <li class="celebrity-item">Muhammad Ali</li>
+                <li class="celebrity-item">Usain Bolt</li>
+                <li class="celebrity-item">Tiger Woods</li>
+                <li class="celebrity-item">LeBron James</li>
+                <li class="celebrity-item">Roger Federer</li>
+                <li class="celebrity-item">Kobe Bryant</li>
+                <li class="celebrity-item">Simone Biles</li>
+            </ul>
+        </div>
+
+        <div class="list-card">
+            <h2 class="list-title">Entrepreneurs Visionnaires</h2>
+            <ul class="celebrity-list">
+                <li class="celebrity-item">Elon Musk</li>
+                <li class="celebrity-item">Steve Jobs</li>
+                <li class="celebrity-item">Bill Gates</li>
+                <li class="celebrity-item">Jeff Bezos</li>
+                <li class="celebrity-item">Mark Zuckerberg</li>
+                <li class="celebrity-item">Warren Buffett</li>
+                <li class="celebrity-item">Richard Branson</li>
+                <li class="celebrity-item">Oprah Winfrey</li>
+                <li class="celebrity-item">Walt Disney</li>
+                <li class="celebrity-item">Henry Ford</li>
+            </ul>
+        </div>
+
+        <div class="list-card">
+            <h2 class="list-title">Écrivains Immortels</h2>
+            <ul class="celebrity-list">
+                <li class="celebrity-item">William Shakespeare</li>
+                <li class="celebrity-item">J.K. Rowling</li>
+                <li class="celebrity-item">Stephen King</li>
+                <li class="celebrity-item">Ernest Hemingway</li>
+                <li class="celebrity-item">Maya Angelou</li>
+                <li class="celebrity-item">George Orwell</li>
+                <li class="celebrity-item">Jane Austen</li>
+                <li class="celebrity-item">Victor Hugo</li>
+                <li class="celebrity-item">Mark Twain</li>
+                <li class="celebrity-item">Agatha Christie</li>
+            </ul>
+        </div>
+
+        <div class="list-card">
+            <h2 class="list-title">Réalisateurs Cultes</h2>
+            <ul class="celebrity-list">
+                <li class="celebrity-item">Steven Spielberg</li>
+                <li class="celebrity-item">Martin Scorsese</li>
+                <li class="celebrity-item">Quentin Tarantino</li>
+                <li class="celebrity-item">Christopher Nolan</li>
+                <li class="celebrity-item">Stanley Kubrick</li>
+                <li class="celebrity-item">Alfred Hitchcock</li>
+                <li class="celebrity-item">Francis Ford Coppola</li>
+                <li class="celebrity-item">Tim Burton</li>
+                <li class="celebrity-item">Ridley Scott</li>
+                <li class="celebrity-item">Denis Villeneuve</li>
+            </ul>
+        </div>
+
+        <div class="list-card">
+            <h2 class="list-title">Artistes Révolutionnaires</h2>
+            <ul class="celebrity-list">
+                <li class="celebrity-item">Pablo Picasso</li>
+                <li class="celebrity-item">Vincent van Gogh</li>
+                <li class="celebrity-item">Leonardo da Vinci</li>
+                <li class="celebrity-item">Frida Kahlo</li>
+                <li class="celebrity-item">Andy Warhol</li>
+                <li class="celebrity-item">Michelangelo</li>
+                <li class="celebrity-item">Salvador Dalí</li>
+                <li class="celebrity-item">Claude Monet</li>
+                <li class="celebrity-item">Banksy</li>
+                <li class="celebrity-item">Georgia O'Keeffe</li>
+            </ul>
+        </div>
+
+        <div class="list-card">
+            <h2 class="list-title">Philosophes & Penseurs</h2>
+            <ul class="celebrity-list">
+                <li class="celebrity-item">Socrate</li>
+                <li class="celebrity-item">Platon</li>
+                <li class="celebrity-item">Aristote</li>
+                <li class="celebrity-item">Confucius</li>
+                <li class="celebrity-item">Friedrich Nietzsche</li>
+                <li class="celebrity-item">Immanuel Kant</li>
+                <li class="celebrity-item">Jean-Paul Sartre</li>
+                <li class="celebrity-item">René Descartes</li>
+                <li class="celebrity-item">Simone de Beauvoir</li>
+                <li class="celebrity-item">Marcus Aurelius</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 - Grimoire Enchanté des Personnalités Célèbres</p>
+        <p><em>"Que la magie de ces âmes illustres vous inspire..."</em></p>
+    </div>
+
+    <script>
+        // Création des étoiles scintillantes
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            const numStars = 100;
+            
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Génération de particules magiques
+        function createMagicParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'magic-particle';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.animationDelay = Math.random() * 12 + 's';
+            particle.style.animationDuration = (Math.random() * 8 + 8) + 's';
+            
+            document.body.appendChild(particle);
+            
+            // Supprimer la particule après l'animation
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 20000);
+        }
+
+        // Animation magique au clic
+        document.querySelectorAll('.celebrity-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Effet de sort magique
+                this.style.animation = 'none';
+                this.offsetHeight; // Force reflow
+                this.style.animation = 'magicPulse 1s ease-in-out';
+                
+                // Créer des étincelles
+                createSparkles(this);
+                
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 1000);
+            });
+        });
+
+        // Création d'étincelles magiques
+        function createSparkles(element) {
+            const rect = element.getBoundingClientRect();
+            const numSparkles = 8;
+            
+            for (let i = 0; i < numSparkles; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.innerHTML = '✨';
+                sparkle.style.position = 'fixed';
+                sparkle.style.left = rect.left + Math.random() * rect.width + 'px';
+                sparkle.style.top = rect.top + Math.random() * rect.height + 'px';
+                sparkle.style.fontSize = '1rem';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.zIndex = '1000';
+                sparkle.style.animation = 'sparkleDisappear 1s ease-out forwards';
+                
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    if (sparkle.parentNode) {
+                        sparkle.parentNode.removeChild(sparkle);
+                    }
+                }, 1000);
+            }
+        }
+
+        // CSS pour les animations magiques
+        const magicStyle = document.createElement('style');
+        magicStyle.textContent = `
+            @keyframes magicPulse {
+                0% { transform: scale(1); }
+                25% { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
+                50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(255, 107, 53, 0.8); }
+                75% { transform: scale(1.05); box-shadow: 0 0 30px rgba(138, 43, 226, 0.8); }
+                100
