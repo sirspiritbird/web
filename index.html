@@ -1,681 +1,198 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Célébrités du Monde</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mariage — Page Adresse</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #fff8f3;
+      --paper: #ffffff;
+      --ink: #3b3b3b;
+      --gold: #c8a97e;
+      --rose: #f3d1c1;
+      --leaf: #a8c3a0;
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --radius: 22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: white;
-            overflow-x: hidden;
-        }
+    /* Subtle floral background with layered gradients */
+    body::before, body::after{
+      content:""; position: fixed; inset: -10vh -10vw auto auto; width: 60vmin; height: 60vmin; pointer-events:none; filter: drop-shadow(0 15px 20px rgba(0,0,0,.06));
+      background:
+        radial-gradient(35% 35% at 65% 35%, rgba(255,255,255,.6), transparent 60%),
+        radial-gradient(35% 35% at 25% 75%, rgba(255,255,255,.5), transparent 60%),
+        conic-gradient(from 0deg, #f9e3da, #f7d8c9, #f4e7e1, #f9e3da);
+      border-radius: 50%; opacity:.7; z-index:0; transform: rotate(10deg);
+    }
+    body::after{ inset: auto auto -10vh -10vw; transform: rotate(-8deg); background:
+      radial-gradient(35% 35% at 70% 35%, rgba(255,255,255,.6), transparent 60%),
+      radial-gradient(35% 35% at 25% 75%, rgba(255,255,255,.5), transparent 60%),
+      conic-gradient(from 0deg, #e7f0e7, #dfece0, #f0f6ef, #e7f0e7);
+    }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+    .wrap{ position: relative; z-index:1; max-width: 980px; margin: 40px auto; padding: 24px; }
 
-        .header {
-            text-align: center;
-            margin-bottom: 50px;
-            animation: fadeInDown 1s ease-out;
-        }
+    .invite{
+      background: var(--paper); box-shadow: var(--shadow); border-radius: var(--radius);
+      overflow: hidden; border: 1px solid rgba(200,169,126,.25);
+    }
 
-        .header h1 {
-            font-size: 3.5rem;
-            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 3s ease infinite;
-            margin-bottom: 20px;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-        }
+    .ribbon{ text-align:center; padding: 18px 16px; background:
+      linear-gradient(135deg, rgba(200,169,126,.22), rgba(243,209,193,.18));
+      border-bottom: 1px solid rgba(200,169,126,.25);
+    }
+    .names{ font-family: 'Great Vibes', cursive; font-size: clamp(42px, 6vw, 72px); color:#4b4237; letter-spacing:.5px; margin: 6px 0 0; }
+    .subtitle{ font-family: 'Playfair Display', serif; font-weight:600; font-size: clamp(14px, 2vw, 18px); color:#6c5f52; letter-spacing: .12em; text-transform: uppercase; }
 
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 30px;
-        }
+    .content{ display:grid; grid-template-columns: 1.2fr .8fr; gap: 28px; padding: 28px; }
+    @media (max-width: 820px){ .content{ grid-template-columns: 1fr; } }
 
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
+    .card{
+      background: linear-gradient(180deg, #fff, #fff9f5 85%);
+      border: 1px solid rgba(200,169,126,.25);
+      border-radius: 18px; padding: 22px; box-shadow: var(--shadow);
+    }
 
-        .category-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 30px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
+    .section-title{ font-family: 'Playfair Display', serif; font-weight:600; font-size: 22px; margin: 0 0 10px; color:#4b4237; }
+    .address{ font-size: 18px; }
+    .address strong{ font-weight:600 }
 
+    .details{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:14px; margin-top: 12px; }
+    .detail{ background: #fff; border: 1px solid rgba(200,169,126,.22); border-radius:14px; padding:14px; text-align:center; }
+    .detail h4{ margin:0 0 6px; font-size:14px; letter-spacing:.08em; text-transform: uppercase; font-weight:600; color:#6c5f52; }
+    .detail p{ margin:0; font-weight:600; font-size:18px; }
 
+    .btns{ display:flex; flex-wrap:wrap; gap:12px; margin-top:18px }
+    .btn{
+      appearance:none; border:none; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:12px 16px; border-radius:999px;
+      font-weight:600; letter-spacing:.02em; box-shadow: var(--shadow); transition: transform .08s ease, box-shadow .2s ease;
+    }
+    .btn:hover{ transform: translateY(-1px) }
+    .btn:active{ transform: translateY(0) }
+    .btn-primary{ background: linear-gradient(135deg, #e9d2bf, #c8a97e); color:#2f281f; }
+    .btn-ghost{ background: #fff; border:1px solid rgba(200,169,126,.35); color:#4b4237 }
 
+    /* Decorative SVG corners */
+    .corners svg{ position:absolute; width:140px; height:140px; opacity:.6; }
+    .corners .top-left{ top:-16px; left:-10px; transform: rotate(8deg); }
+    .corners .bottom-right{ bottom:-16px; right:-10px; transform: rotate(-172deg); }
 
+    /* Map */
+    .map{ border-radius: 16px; overflow:hidden; border:1px solid rgba(200,169,126,.25); box-shadow: var(--shadow); height: 360px; width:100%; }
 
-        .category-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-align: center;
-            position: relative;
-        }
+    footer{ text-align:center; color:#7a6e61; padding: 12px 0 26px; font-size: 14px; }
 
-        .category-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(90deg, #ff6b6b, #feca57);
-            border-radius: 2px;
-        }
-
-        .celebrities-list {
-            list-style: none;
-            display: grid;
-            gap: 12px;
-        }
-
-        .celebrity-item {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 15px 20px;
-            border-radius: 12px;
-            border-left: 4px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .celebrity-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 4px;
-            background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
-        }
-
-
-
-        .celebrity-name {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .celebrity-description {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-top: 5px;
-        }
-
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            margin-top: 50px;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px 30px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #feca57;
-        }
-
-        .stat-label {
-            font-size: 1rem;
-            opacity: 0.9;
-            margin-top: 5px;
-        }
-
-        /* Couleurs spécifiques pour chaque catégorie */
-        .category-card:nth-child(1) { border-left-color: #ff6b6b; }
-        .category-card:nth-child(2) { border-left-color: #feca57; }
-        .category-card:nth-child(3) { border-left-color: #48dbfb; }
-        .category-card:nth-child(4) { border-left-color: #ff9ff3; }
-        .category-card:nth-child(5) { border-left-color: #54a0ff; }
-        .category-card:nth-child(6) { border-left-color: #5f27cd; }
-        .category-card:nth-child(7) { border-left-color: #00d2d3; }
-        .category-card:nth-child(8) { border-left-color: #ff9f43; }
-        .category-card:nth-child(9) { border-left-color: #10ac84; }
-        .category-card:nth-child(10) { border-left-color: #ee5a6f; }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.5rem;
-            }
-            
-            .categories-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .stats {
-                gap: 20px;
-            }
-            
-            .stat-item {
-                padding: 15px 20px;
-            }
-        }
-
-        .floating-elements {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .floating-circle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .floating-circle:nth-child(1) {
-            width: 80px;
-            height: 80px;
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .floating-circle:nth-child(2) {
-            width: 120px;
-            height: 120px;
-            top: 60%;
-            right: 15%;
-            animation-delay: 2s;
-        }
-
-        .floating-circle:nth-child(3) {
-            width: 60px;
-            height: 60px;
-            bottom: 20%;
-            left: 20%;
-            animation-delay: 4s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-    </style>
+    /* Print styles */
+    @media print{
+      .btns, .map { display:none !important; }
+      .wrap{ margin:0; padding:0 }
+      body{ background:#fff }
+      .invite{ border: none; box-shadow:none }
+    }
+  </style>
 </head>
 <body>
-    <div class="floating-elements">
-        <div class="floating-circle"></div>
-        <div class="floating-circle"></div>
-        <div class="floating-circle"></div>
+  <div class="wrap">
+    <div class="invite">
+      <div class="ribbon">
+        <div class="subtitle">Mariage</div>
+        <div class="names">Emma & Lucas</div>
+      </div>
+
+      <div class="content">
+        <!-- Left column: address & info -->
+        <section class="card">
+          <h3 class="section-title">Adresse du lieu</h3>
+          <p class="address">
+            <strong>Château de la Belle Étoile</strong><br />
+            123 Route des Fleurs<br />
+            75000 Paris, France
+          </p>
+
+          <div class="details">
+            <div class="detail">
+              <h4>Date</h4>
+              <p>Samedi 14 juin 2025</p>
+            </div>
+            <div class="detail">
+              <h4>Cérémonie</h4>
+              <p>15h00</p>
+            </div>
+            <div class="detail">
+              <h4>Réception</h4>
+              <p>18h30</p>
+            </div>
+            <div class="detail">
+              <h4>Dress code</h4>
+              <p>Champêtre chic</p>
+            </div>
+          </div>
+
+          <div class="btns">
+            <a class="btn btn-primary" id="openMaps" href="https://maps.google.com/?q=Ch%C3%A2teau%20de%20la%20Belle%20%C3%89toile%2C%20Paris" target="_blank" rel="noopener">
+              Ouvrir dans Google Maps
+            </a>
+            <button class="btn btn-ghost" onclick="window.print()">Imprimer l'adresse</button>
+          </div>
+        </section>
+
+        <!-- Right column: map -->
+        <aside>
+          <div class="card corners" style="position:relative">
+            <svg class="top-left" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M7 80 C 24 64, 34 44, 52 28 C 68 14, 86 10, 93 10" stroke="#c8a97e" stroke-width="2" fill="none"/>
+              <circle cx="52" cy="28" r="2" fill="#a8c3a0"/>
+              <circle cx="34" cy="44" r="2" fill="#f3d1c1"/>
+            </svg>
+            <svg class="bottom-right" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M7 80 C 24 64, 34 44, 52 28 C 68 14, 86 10, 93 10" stroke="#c8a97e" stroke-width="2" fill="none"/>
+              <circle cx="52" cy="28" r="2" fill="#a8c3a0"/>
+              <circle cx="34" cy="44" r="2" fill="#f3d1c1"/>
+            </svg>
+
+            <h3 class="section-title">Carte</h3>
+            <div class="map">
+              <!-- Remplacez le src ci-dessous par votre lien d'intégration Google Maps -->
+              <iframe title="Carte du lieu" width="100%" height="100%" style="border:0" loading="lazy" allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.999453561078!2d2.292292615674768!3d48.858373079287824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDUxJzMwLjIiTiAywrAxNSczMi4yIkU!5e0!3m2!1sfr!2sfr!4v1710000000000"></iframe>
+            </div>
+          </div>
+        </aside>
+      </div>
     </div>
 
-    <div class="container">
-        <header class="header">
-            <h1>Recueil Magique des Âmes Illustres</h1>
-            <p class="subtitle">Découvrez 100 personnalités qui ont marqué notre époque</p>
-        </header>
+    <footer>
+      Avec tout notre amour — nous avons hâte de célébrer avec vous ✨
+    </footer>
+  </div>
 
-        <div class="categories-grid">
-            <div class="category-card">
-                <h2 class="category-title">🎬 Acteurs Légendaires</h2>
-                <ul class="celebrities-list">
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Leonardo DiCaprio</div>
-                        <div class="celebrity-description">Acteur oscarisé, militant écologiste</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Meryl Streep</div>
-                        <div class="celebrity-description">21 nominations aux Oscars</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Robert De Niro</div>
-                        <div class="celebrity-description">Icône du cinéma américain</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Cate Blanchett</div>
-                        <div class="celebrity-description">Actrice australienne polyvalente</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Joaquin Phoenix</div>
-                        <div class="celebrity-description">Joker oscarisé</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Scarlett Johansson</div>
-                        <div class="celebrity-description">Star d'action et drame</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Denzel Washington</div>
-                        <div class="celebrity-description">Acteur et réalisateur respecté</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Charlize Theron</div>
-                        <div class="celebrity-description">Actrice sud-africaine oscarisée</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Tom Hanks</div>
-                        <div class="celebrity-description">Amérique's Sweetheart</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Frances McDormand</div>
-                        <div class="celebrity-description">Triple oscarisée</div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="category-card">
-                <h2 class="category-title">🎵 Icônes Musicales</h2>
-                <ul class="celebrities-list">
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Beyoncé</div>
-                        <div class="celebrity-description">Queen B, artiste la plus primée</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Michael Jackson</div>
-                        <div class="celebrity-description">King of Pop éternel</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Adele</div>
-                        <div class="celebrity-description">Voix britannique emblématique</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Ed Sheeran</div>
-                        <div class="celebrity-description">Auteur-compositeur moderne</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Taylor Swift</div>
-                        <div class="celebrity-description">Pop country superstar</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Bruno Mars</div>
-                        <div class="celebrity-description">Showman aux multiples talents</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Rihanna</div>
-                        <div class="celebrity-description">Icône pop et businesswoman</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">John Lennon</div>
-                        <div class="celebrity-description">Légende des Beatles</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Prince</div>
-                        <div class="celebrity-description">Génie musical de Minneapolis</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Lady Gaga</div>
-                        <div class="celebrity-description">Artiste avant-gardiste</div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="category-card">
-                <h2 class="category-title">🏆 Légendes du Sport</h2>
-                <ul class="celebrities-list">
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Cristiano Ronaldo</div>
-                        <div class="celebrity-description">Phénomène du football</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Serena Williams</div>
-                        <div class="celebrity-description">Reine du tennis mondial</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Michael Jordan</div>
-                        <div class="celebrity-description">His Airness, légende NBA</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Usain Bolt</div>
-                        <div class="celebrity-description">L'homme le plus rapide</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Lionel Messi</div>
-                        <div class="celebrity-description">Magicien argentin du ballon</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Muhammad Ali</div>
-                        <div class="celebrity-description">The Greatest boxer</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Tiger Woods</div>
-                        <div class="celebrity-description">Légende du golf mondial</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">LeBron James</div>
-                        <div class="celebrity-description">King James du basketball</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Roger Federer</div>
-                        <div class="celebrity-description">Maestro du tennis</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Simone Biles</div>
-                        <div class="celebrity-description">Prodige de la gymnastique</div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="category-card">
-                <h2 class="category-title">🧠 Génies & Innovateurs</h2>
-                <ul class="celebrities-list">
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Elon Musk</div>
-                        <div class="celebrity-description">Visionnaire technologique</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Albert Einstein</div>
-                        <div class="celebrity-description">Génie de la physique</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Steve Jobs</div>
-                        <div class="celebrity-description">Révolutionnaire d'Apple</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Marie Curie</div>
-                        <div class="celebrity-description">Pionnière de la radioactivité</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Bill Gates</div>
-                        <div class="celebrity-description">Fondateur de Microsoft</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Stephen Hawking</div>
-                        <div class="celebrity-description">Astrophysicien légendaire</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Leonardo da Vinci</div>
-                        <div class="celebrity-description">Génie de la Renaissance</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Nikola Tesla</div>
-                        <div class="celebrity-description">Inventeur électrisant</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Mark Zuckerberg</div>
-                        <div class="celebrity-description">Créateur de Facebook</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Katherine Johnson</div>
-                        <div class="celebrity-description">Mathématicienne de la NASA</div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="category-card">
-                <h2 class="category-title">👑 Leaders Historiques</h2>
-                <ul class="celebrities-list">
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Nelson Mandela</div>
-                        <div class="celebrity-description">Icône de la liberté</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Winston Churchill</div>
-                        <div class="celebrity-description">Premier ministre britannique</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Mahatma Gandhi</div>
-                        <div class="celebrity-description">Apôtre de la non-violence</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Martin Luther King Jr.</div>
-                        <div class="celebrity-description">Champion des droits civiques</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Abraham Lincoln</div>
-                        <div class="celebrity-description">Président libérateur</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Elizabeth II</div>
-                        <div class="celebrity-description">Reine emblématique</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">John F. Kennedy</div>
-                        <div class="celebrity-description">Président charismatique</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Franklin D. Roosevelt</div>
-                        <div class="celebrity-description">Leader du New Deal</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Cleopatra</div>
-                        <div class="celebrity-description">Dernière pharaon d'Égypte</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Alexander the Great</div>
-                        <div class="celebrity-description">Conquérant macédonien</div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="category-card">
-                <h2 class="category-title">📚 Auteurs Célèbres</h2>
-                <ul class="celebrities-list">
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">J.K. Rowling</div>
-                        <div class="celebrity-description">Créatrice d'Harry Potter</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">William Shakespeare</div>
-                        <div class="celebrity-description">Barde immortel</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Agatha Christie</div>
-                        <div class="celebrity-description">Reine du crime</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Stephen King</div>
-                        <div class="celebrity-description">Maître de l'horreur</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Maya Angelou</div>
-                        <div class="celebrity-description">Poétesse inspirante</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">George Orwell</div>
-                        <div class="celebrity-description">Visionnaire dystopique</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Jane Austen</div>
-                        <div class="celebrity-description">Romancière britannique</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Ernest Hemingway</div>
-                        <div class="celebrity-description">Prix Nobel de littérature</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Toni Morrison</div>
-                        <div class="celebrity-description">Voix de la littérature afro-américaine</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Gabriel García Márquez</div>
-                        <div class="celebrity-description">Maître du réalisme magique</div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="category-card">
-                <h2 class="category-title">🎨 Artistes Visionnaires</h2>
-                <ul class="celebrities-list">
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Pablo Picasso</div>
-                        <div class="celebrity-description">Père du cubisme</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Vincent van Gogh</div>
-                        <div class="celebrity-description">Post-impressionniste torturé</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Frida Kahlo</div>
-                        <div class="celebrity-description">Icône artistique mexicaine</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Andy Warhol</div>
-                        <div class="celebrity-description">Roi du pop art</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Banksy</div>
-                        <div class="celebrity-description">Street artist mystérieux</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Claude Monet</div>
-                        <div class="celebrity-description">Maître impressionniste</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Salvador Dalí</div>
-                        <div class="celebrity-description">Surréaliste excentrique</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Georgia O'Keeffe</div>
-                        <div class="celebrity-description">Peintre américaine moderne</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Jean-Michel Basquiat</div>
-                        <div class="celebrity-description">Prodige du néo-expressionnisme</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Yves Klein</div>
-                        <div class="celebrity-description">Créateur du bleu Klein</div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="category-card">
-                <h2 class="category-title">🚀 Explorateurs Modernes</h2>
-                <ul class="celebrities-list">
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Neil Armstrong</div>
-                        <div class="celebrity-description">Premier homme sur la Lune</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Jacques Cousteau</div>
-                        <div class="celebrity-description">Explorateur des océans</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Edmund Hillary</div>
-                        <div class="celebrity-description">Conquérant de l'Everest</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Amelia Earhart</div>
-                        <div class="celebrity-description">Pionnière de l'aviation</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Yuri Gagarin</div>
-                        <div class="celebrity-description">Premier homme dans l'espace</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Ernest Shackleton</div>
-                        <div class="celebrity-description">Explorateur antarctique</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Mae Jemison</div>
-                        <div class="celebrity-description">Première astronaute afro-américaine</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Bear Grylls</div>
-                        <div class="celebrity-description">Aventurier de la survie</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Jane Goodall</div>
-                        <div class="celebrity-description">Primatologue renommée</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Richard Branson</div>
-                        <div class="celebrity-description">Entrepreneur aventurier</div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="category-card">
-                <h2 class="category-title">📺 Icônes du Divertissement</h2>
-                <ul class="celebrities-list">
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Oprah Winfrey</div>
-                        <div class="celebrity-description">Reine des médias américains</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Nagui</div>
-                        <div class="celebrity-description">Présentateur de jeux</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Ellen DeGeneres</div>
-                        <div class="celebrity-description">Animatrice emblématique</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Jimmy Fallon</div>
-                        <div class="celebrity-description">Roi du late-night show</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Mick Horns</div>
-                        <div class="celebrity-description">Explorateur et animateur</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Claire Chazal</div>
-                        <div class="celebrity-description">Présentatrice JT</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">David Letterman</div>
-                        <div class="celebrity-description">Légende de la télé</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Jon Stewart</div>
-                        <div class="celebrity-description">Satiriste politique</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Conan O'Brien</div>
-                        <div class="celebrity-description">Humoriste à la chevelure rousse</div>
-                    </li>
-                    <li class="celebrity-item">
-                        <div class="celebrity-name">Vincent Lagaf</div>
-                        <div class="celebrity-description">Présentateur TV</div>
-                    </li>
-
-                
+  <script>
+    // Optionnel : si l'utilisateur arrive depuis un téléphone, proposer l'app de navigation
+    (function(){
+      const btn = document.getElementById('openMaps');
+      if(!btn) return;
+      try{
+        const ua = navigator.userAgent.toLowerCase();
+        const isIOS = /iphone|ipad|ipod/.test(ua);
+        const isAndroid = /android/.test(ua);
+        const query = encodeURIComponent('Château de la Belle Étoile, Paris');
+        if(isIOS){ btn.href = 'maps://?q=' + query; }
+        else if(isAndroid){ btn.href = 'geo:0,0?q=' + query; }
+      }catch(e){}
+    })();
+  </script>
+</body>
+</html>
